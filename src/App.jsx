@@ -7,6 +7,7 @@ import About from './Components/About';
 import Project from './Components/Project';
 import Skills from './Components/Skills';
 import Contact from './Components/Contact';
+import Footer from './Components/Footer';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
     element:<div>
       <Navbar />
       <Home />
+      <Footer/>
     </div>
   },
   {
@@ -23,6 +25,7 @@ function App() {
     element:<div>
       <Navbar />
       <About />
+      <Footer/>
     </div>
   },
   {
@@ -30,6 +33,7 @@ function App() {
     element:<div>
       <Navbar />
       <Project />
+      <Footer/>
     </div>
   },
   {
@@ -37,6 +41,7 @@ function App() {
     element:<div>
       <Navbar />
       <Skills />
+      <Footer/>
     </div>
   },
   {
@@ -44,12 +49,17 @@ function App() {
     element:<div>
       <Navbar />
       <Contact />
+      <Footer/>
     </div>
   },
+  
 ]);
 
   return (
+    <>
     <RouterProvider router={router} />
+    
+    </>
   )
 }
 
