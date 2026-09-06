@@ -1,5 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 const Footer = () => {
     return (
@@ -76,22 +79,36 @@ const Footer = () => {
                             Feel free to connect with me.
                         </p>
 
-                        <div className="flex gap-4 mt-4">
+                        <div className="flex gap-5 mt-4">
+
+                            {/* GitHub */}
                             <a
-                                target='_blank'
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 href="https://github.com/manoj2006h"
-                                className="text-gray-400 hover:text-white transition"
+                                className="text-2xl text-gray-400 hover:text-white transition"
                             >
-                                GitHub
+                                <FontAwesomeIcon icon={faGithub} />
                             </a>
 
+                            {/* LinkedIn */}
                             <a
-                                target='_blank'
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 href="https://www.linkedin.com/in/manoj2006h/"
-                                className="text-gray-400 hover:text-white transition"
+                                className="text-2xl text-gray-400 hover:text-white transition"
                             >
-                                LinkedIn
+                                <FontAwesomeIcon icon={faLinkedin} />
                             </a>
+
+                            {/* Email */}
+                            <a
+                                href="mailto:manoj2006h@gmail.com"
+                                className="text-2xl text-gray-400 hover:text-white transition"
+                            >
+                                <FontAwesomeIcon icon={faEnvelope} />
+                            </a>
+
                         </div>
                     </div>
 
