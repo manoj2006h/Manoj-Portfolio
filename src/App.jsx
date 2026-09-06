@@ -57,8 +57,9 @@ function App() {
 
   return (
     <>
-    <RouterProvider router={router} />
-    
+    {/* <RouterProvider router={router} /> */}
+    <h1>Under Maintainance</h1>
+    <h1>Will be back soon</h1>
     </>
   )
 }
