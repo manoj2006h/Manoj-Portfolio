@@ -5,9 +5,9 @@ import Home from './Components/Home'
 import Navbar from './Components/Navbar';
 import About from './Components/About';
 import Project from './Components/Project';
-import Skills from './Components/Skills';
 import Contact from './Components/Contact';
 import Footer from './Components/Footer';
+import OverviewSkills from './Components/OverviewSkills';
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
     element:<div>
       <Navbar />
       <Home />
+      <OverviewSkills />
       <Footer/>
     </div>
   },
@@ -40,7 +41,7 @@ function App() {
     path: "/skills",
     element:<div>
       <Navbar />
-      <Skills />
+      <OverviewSkills />
       <Footer/>
     </div>
   },
@@ -57,9 +58,9 @@ function App() {
 
   return (
     <>
-    {/* <RouterProvider router={router} /> */}
-    <h1>Under Maintainance</h1>
-    <h1>Will be back soon</h1>
+    <RouterProvider router={router} />
+    {/* <h1>Under Maintainance</h1>
+    <h1>Will be back soon</h1> */}
     </>
   )
 }
