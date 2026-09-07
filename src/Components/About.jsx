@@ -1,13 +1,64 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const About = () => {
+
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 40
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7
+      }
+    }
+  }
+
+  const fadeLeft = {
+    hidden: {
+      opacity: 0,
+      x: -50
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.7
+      }
+    }
+  }
+
+  const fadeRight = {
+    hidden: {
+      opacity: 0,
+      x: 50
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.7
+      }
+    }
+  }
+
+
   return (
     <section className="bg-slate-950 px-5 py-24 text-white">
 
       <div className="mx-auto max-w-6xl">
 
+
         {/* Intro */}
-        <div className="max-w-4xl">
+        <motion.div
+          className="max-w-4xl"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+        >
 
           <p className="text-sm font-medium uppercase tracking-[0.3em] text-blue-500">
             About Me
@@ -27,13 +78,19 @@ const About = () => {
             eventually turning those ideas into something real.
           </p>
 
-        </div>
+        </motion.div>
 
 
         {/* Story */}
         <div className="mt-24 grid gap-12 md:grid-cols-2">
 
-          <div>
+          <motion.div
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+
             <p className="text-sm uppercase tracking-widest text-blue-500">
               The Way I Learn
             </p>
@@ -41,9 +98,17 @@ const About = () => {
             <h2 className="mt-4 text-3xl font-bold">
               Curiosity usually comes first.
             </h2>
-          </div>
 
-          <div className="space-y-6 leading-relaxed text-gray-400">
+          </motion.div>
+
+
+          <motion.div
+            className="space-y-6 leading-relaxed text-gray-400"
+            variants={fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
 
             <p>
               When I come across a new technology, my first thought is usually
@@ -61,19 +126,27 @@ const About = () => {
               with.
             </p>
 
-          </div>
+          </motion.div>
 
         </div>
 
 
         {/* Personal Details */}
-        <div className="mt-24 border-y border-slate-800 py-10">
+        <motion.div
+          className="mt-24 border-y border-slate-800 py-10"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
 
             <div>
               <p className="text-sm text-gray-500">Currently</p>
-              <p className="mt-2 text-lg font-medium">Learning & Building</p>
+              <p className="mt-2 text-lg font-medium">
+                Learning & Building
+              </p>
             </div>
 
             <div>
@@ -85,7 +158,9 @@ const About = () => {
 
             <div>
               <p className="text-sm text-gray-500">Also Exploring</p>
-              <p className="mt-2 text-lg font-medium">DSA & AI</p>
+              <p className="mt-2 text-lg font-medium">
+                DSA & AI
+              </p>
             </div>
 
             <div>
@@ -97,11 +172,17 @@ const About = () => {
 
           </div>
 
-        </div>
+        </motion.div>
 
 
         {/* My Approach */}
-        <div className="mt-24 max-w-3xl">
+        <motion.div
+          className="mt-24 max-w-3xl"
+          variants={fadeLeft}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
 
           <p className="text-sm uppercase tracking-widest text-blue-500">
             My Approach
@@ -114,7 +195,7 @@ const About = () => {
             </span>
           </h2>
 
-        </div>
+        </motion.div>
 
 
         {/* Workspace Section */}
@@ -122,8 +203,14 @@ const About = () => {
 
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
 
+
             {/* Left Side */}
-            <div>
+            <motion.div
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
 
               <p className="text-sm font-medium uppercase tracking-[0.3em] text-blue-500">
                 Behind The Screen
@@ -143,13 +230,29 @@ const About = () => {
                 something real.
               </p>
 
-            </div>
+            </motion.div>
 
 
             {/* Right Side */}
-            <div className="space-y-4">
+            <motion.div
+              className="space-y-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.2
+                  }
+                }
+              }}
+            >
 
-              <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500">
+              <motion.div
+                variants={fadeRight}
+                className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500"
+              >
 
                 <div>
                   <p className="text-sm text-gray-500">
@@ -165,10 +268,13 @@ const About = () => {
                   16GB / 256GB
                 </span>
 
-              </div>
+              </motion.div>
 
 
-              <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500">
+              <motion.div
+                variants={fadeRight}
+                className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500"
+              >
 
                 <div>
                   <p className="text-sm text-gray-500">
@@ -184,10 +290,13 @@ const About = () => {
                   Web Development
                 </span>
 
-              </div>
+              </motion.div>
 
 
-              <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500">
+              <motion.div
+                variants={fadeRight}
+                className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:border-blue-500"
+              >
 
                 <div>
                   <p className="text-sm text-gray-500">
@@ -203,9 +312,9 @@ const About = () => {
                   Java Development
                 </span>
 
-              </div>
+              </motion.div>
 
-            </div>
+            </motion.div>
 
           </div>
 

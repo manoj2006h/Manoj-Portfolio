@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import {
   faHtml5,
@@ -20,9 +21,11 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
 const OverviewSkills = () => {
 
   const [activeCategory, setActiveCategory] = useState("All")
+
 
   const skills = [
 
@@ -114,20 +117,87 @@ const OverviewSkills = () => {
     activeCategory === "All"
       ? skills
       : skills.filter(
-        (skill) => skill.category === activeCategory
-      )
+          (skill) => skill.category === activeCategory
+        )
+
+
+  /* Animation Variants */
+
+  const containerVariants = {
+    hidden: {
+      opacity: 0
+    },
+
+    visible: {
+      opacity: 1,
+
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      scale: 0.95
+    },
+
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+
+      transition: {
+        duration: 0.4
+      }
+    },
+
+    exit: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
+
+      transition: {
+        duration: 0.2
+      }
+    }
+  }
 
 
   return (
 
-    <section className="bg-slate-950 px-5 py-20 text-white">
+    <section className="overflow-hidden bg-slate-950 px-5 py-20 text-white">
 
       <div className="mx-auto max-w-6xl">
 
 
-        {/* Heading */}
+        {/* ================= HEADING ================= */}
 
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+
+          initial={{
+            opacity: 0,
+            y: 30
+          }}
+
+          whileInView={{
+            opacity: 1,
+            y: 0
+          }}
+
+          viewport={{
+            once: true,
+            amount: 0.3
+          }}
+
+          transition={{
+            duration: 0.6
+          }}
+        >
 
           <p className="text-sm font-medium uppercase tracking-widest text-blue-500">
             My Skills
@@ -142,18 +212,49 @@ const OverviewSkills = () => {
             and use to build modern web applications.
           </p>
 
-        </div>
+        </motion.div>
 
 
-        {/* Category Buttons */}
+        {/* ================= CATEGORY BUTTONS ================= */}
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
+        <motion.div
+          className="mt-10 flex flex-wrap justify-center gap-3"
+
+          initial={{
+            opacity: 0,
+            y: 20
+          }}
+
+          whileInView={{
+            opacity: 1,
+            y: 0
+          }}
+
+          viewport={{
+            once: true
+          }}
+
+          transition={{
+            duration: 0.5,
+            delay: 0.2
+          }}
+        >
 
           {categories.map((category) => (
 
-            <button
+            <motion.button
               key={category}
+
               onClick={() => setActiveCategory(category)}
+
+              whileHover={{
+                scale: 1.05
+              }}
+
+              whileTap={{
+                scale: 0.95
+              }}
+
               className={`rounded-lg px-5 py-3 text-sm transition duration-300 ${
 
                 activeCategory === category
@@ -164,51 +265,100 @@ const OverviewSkills = () => {
 
               }`}
             >
+
               {category}
-            </button>
+
+            </motion.button>
 
           ))}
 
-        </div>
+        </motion.div>
 
 
-        {/* Skills Grid */}
+        {/* ================= SKILLS GRID ================= */}
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
 
-          {filteredSkills.map((skill) => (
+          variants={containerVariants}
 
-            <div
-              key={skill.name}
-              className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 p-6 transition duration-300 hover:-translate-y-2 hover:border-blue-500 hover:bg-slate-800"
-            >
+          initial="hidden"
 
-              {/* Icon */}
+          whileInView="visible"
 
-              <FontAwesomeIcon
-                icon={skill.icon}
-                className="text-5xl text-blue-500"
-              />
+          viewport={{
+            once: true,
+            amount: 0.2
+          }}
+        >
+
+          <AnimatePresence mode="popLayout">
+
+            {filteredSkills.map((skill) => (
+
+              <motion.div
+                key={skill.name}
+
+                layout
+
+                variants={cardVariants}
+
+                initial="hidden"
+
+                animate="visible"
+
+                exit="exit"
+
+                whileHover={{
+                  y: -10,
+                  scale: 1.02
+                }}
+
+                className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 p-6"
+              >
+
+                {/* Icon */}
+
+                <motion.div
+                  whileHover={{
+                    rotate: 8,
+                    scale: 1.15
+                  }}
+
+                  transition={{
+                    type: "spring",
+                    stiffness: 300
+                  }}
+                >
+
+                  <FontAwesomeIcon
+                    icon={skill.icon}
+                    className="text-5xl text-blue-500"
+                  />
+
+                </motion.div>
 
 
-              {/* Name */}
+                {/* Name */}
 
-              <h3 className="mt-5 text-lg font-semibold">
-                {skill.name}
-              </h3>
+                <h3 className="mt-5 text-lg font-semibold">
+                  {skill.name}
+                </h3>
 
 
-              {/* Category */}
+                {/* Category */}
 
-              <p className="mt-2 text-sm text-gray-400">
-                {skill.category}
-              </p>
+                <p className="mt-2 text-sm text-gray-400">
+                  {skill.category}
+                </p>
 
-            </div>
+              </motion.div>
 
-          ))}
+            ))}
 
-        </div>
+          </AnimatePresence>
+
+        </motion.div>
 
       </div>
 
