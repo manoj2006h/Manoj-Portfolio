@@ -3,8 +3,17 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+
+import {
+  faGithub,
+  faLinkedin
+} from '@fortawesome/free-brands-svg-icons'
+
+import {
+  faEnvelope,
+  faPaperPlane
+} from '@fortawesome/free-solid-svg-icons'
+
 
 const Contact = () => {
 
@@ -69,14 +78,15 @@ const Contact = () => {
 
   return (
 
-    <section className="min-h-screen bg-slate-950 px-5 py-24 text-white">
+    <section className="min-h-screen bg-slate-950 px-5 pt-16 pb-24 text-white">
 
       <div className="mx-auto max-w-6xl">
+
 
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
@@ -105,6 +115,7 @@ const Contact = () => {
         {/* Contact Content */}
         <div className="mt-20 grid gap-12 md:grid-cols-2">
 
+
           {/* Left Side */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -126,10 +137,11 @@ const Contact = () => {
             {/* Contact Links */}
             <div className="mt-10 space-y-4">
 
+
               {/* Email */}
               <a
                 href="mailto:manoj2006h@gmail.com"
-                className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-1 hover:border-blue-500"
+                className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-900 p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500"
               >
 
                 <FontAwesomeIcon
@@ -138,6 +150,7 @@ const Contact = () => {
                 />
 
                 <div>
+
                   <p className="text-sm text-gray-500">
                     Email
                   </p>
@@ -145,6 +158,7 @@ const Contact = () => {
                   <p className="mt-1">
                     manoj2006h@gmail.com
                   </p>
+
                 </div>
 
               </a>
@@ -155,7 +169,7 @@ const Contact = () => {
                 href="https://github.com/manoj2006h"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-1 hover:border-blue-500"
+                className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-900 p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500"
               >
 
                 <FontAwesomeIcon
@@ -164,6 +178,7 @@ const Contact = () => {
                 />
 
                 <div>
+
                   <p className="text-sm text-gray-500">
                     GitHub
                   </p>
@@ -171,6 +186,7 @@ const Contact = () => {
                   <p className="mt-1">
                     github.com/manoj2006h
                   </p>
+
                 </div>
 
               </a>
@@ -181,7 +197,7 @@ const Contact = () => {
                 href="https://www.linkedin.com/in/manoj2006h/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-900 p-5 transition hover:-translate-y-1 hover:border-blue-500"
+                className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-900 p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-500"
               >
 
                 <FontAwesomeIcon
@@ -190,6 +206,7 @@ const Contact = () => {
                 />
 
                 <div>
+
                   <p className="text-sm text-gray-500">
                     LinkedIn
                   </p>
@@ -197,6 +214,7 @@ const Contact = () => {
                   <p className="mt-1">
                     Connect with me
                   </p>
+
                 </div>
 
               </a>
@@ -229,6 +247,7 @@ const Contact = () => {
               onSubmit={sendEmail}
               className="mt-8 space-y-5"
             >
+
 
               {/* Name */}
               <div>
@@ -288,7 +307,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-3 rounded-lg bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-3 rounded-lg bg-blue-600 px-6 py-3 font-medium transition duration-300 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
 
                 {loading ? "Sending..." : "Send Message"}
@@ -298,10 +317,12 @@ const Contact = () => {
               </button>
 
 
-              {/* Status */}
+              {/* Status Message */}
               {status && (
 
-                <p
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   className={`text-center text-sm ${
                     success
                       ? "text-green-400"
@@ -309,7 +330,7 @@ const Contact = () => {
                   }`}
                 >
                   {status}
-                </p>
+                </motion.p>
 
               )}
 
