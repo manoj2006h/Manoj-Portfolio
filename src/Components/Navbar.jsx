@@ -7,6 +7,7 @@ const links = [
   { to: '/skills', label: 'Skills', n: '02' },
   { to: '/projects', label: 'Projects', n: '03' },
   { to: '/contact', label: 'Contact', n: '04' },
+  { to: '/resume', label: 'Resume', n: '05' },
 ]
 
 const SunIcon = () => (

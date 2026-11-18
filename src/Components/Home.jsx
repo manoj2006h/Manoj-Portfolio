@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { motion } from 'framer-motion'
+import ManojPic from '../Assets/ManojPic.png'
 
 const Home = () => {
   const navigator = useNavigate()
@@ -10,23 +11,47 @@ const Home = () => {
   const panelCharRefs = useRef([])
   const panelState = useRef({ items: [], hovered: false, ready: false, raf: 0 })
 
-  const [offsets] = useState(() => {
+  const [offsets, setOffsets] = useState(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-    const make = (yRange, rRange) =>
-      isMobile
-        ? { x: 0, y: 0, r: 0 }
-        : {
-            x: 0,
-            y: (Math.random() - 0.5) * yRange,
-            r: (Math.random() - 0.5) * rRange,
-          }
+    const zero = { x: 0, y: 0, r: 0 }
 
     return {
-      chars: name.split('').map(() => make(22, 12)),
-      dot: make(12, 8),
+      chars: name.split('').map(() => zero),
+      dot: zero,
       isMobile,
     }
   })
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+      const yRange = isMobile ? 20 : 30
+      const rRange = isMobile ? 10 : 16
+      const nMin = isMobile ? 1 : 2
+      const nMax = isMobile ? 4 : 6
+      const dotY = isMobile ? 10 : 16
+      const dotR = isMobile ? 6 : 10
+
+      setOffsets((prev) => ({
+        ...prev,
+        chars: name.split('').map((char) => ({
+          x: 0,
+          y:
+            char === 'N'
+              ? -(nMin + Math.random() * nMax)
+              : (Math.random() - 0.5) * yRange,
+          r: (Math.random() - 0.5) * rRange,
+        })),
+        dot: {
+          x: 0,
+          y: (Math.random() - 0.5) * dotY,
+          r: (Math.random() - 0.5) * dotR,
+        },
+      }))
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [name])
 
   useEffect(() => {
     if (offsets.isMobile) return undefined
@@ -187,7 +212,7 @@ const Home = () => {
     <div className="bg-paper text-ink">
       {/* ================= HERO SECTION ================= */}
       <section className="wrap pt-[140px] pb-10 md:pt-[160px] md:pb-14">
-        <div className="grid items-end gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+        <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
           {/* LEFT SIDE */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -244,8 +269,8 @@ const Home = () => {
               <button onClick={() => navigator('/projects')} className="pillb solid w-full sm:w-auto">
                 View Projects <span className="arr" />
               </button>
-              <button onClick={() => navigator('/contact')} className="pillb w-full sm:w-auto">
-                Contact Me
+              <button onClick={() => navigator('/resume')} className="pillb w-full sm:w-auto">
+                Resume
               </button>
             </div>
           </motion.div>
@@ -342,30 +367,59 @@ const Home = () => {
       {/* ================= ABOUT ME SECTION ================= */}
       <section className="border-t border-ink">
         <div className="wrap pt-24 pb-12 md:pt-28 md:pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-4xl"
-          >
-            <p className="m">01 · About Me</p>
-            <h2 className="mt-4 text-[clamp(40px,5.2vw,72px)] font-light leading-[1.02] uppercase tracking-[-0.005em]">
-              Who am I<span className="text-accent">?</span>
-            </h2>
-            <p className="mt-8 max-w-2xl text-[19px] leading-[1.7] text-body">
-              I&apos;m someone who enjoys exploring technology by building with it.
-              Rather than just learning concepts, I like turning ideas into
-              projects, solving problems along the way, and continuously
-              discovering what I can create next.
-            </p>
-            <button
-              onClick={() => navigator('/about')}
-              className="mt-10 pillb"
+          <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7 }}
+              className="max-w-2xl"
             >
-              More About Me <span className="arr" />
-            </button>
-          </motion.div>
+              <p className="m">01 · About Me</p>
+              <h2 className="mt-4 text-[clamp(40px,5.2vw,72px)] font-light leading-[1.02] uppercase tracking-[-0.005em]">
+                Who am I<span className="text-accent">?</span>
+              </h2>
+              <p className="mt-8 text-[19px] leading-[1.7] text-body">
+                I&apos;m someone who enjoys exploring technology by building with it.
+                Rather than just learning concepts, I like turning ideas into
+                projects, solving problems along the way, and continuously
+                discovering what I can create next.
+              </p>
+              <button
+                onClick={() => navigator('/about')}
+                className="mt-10 pillb"
+              >
+                More About Me <span className="arr" />
+              </button>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <div className="vf mx-auto aspect-[4/5] w-full max-w-md overflow-hidden">
+                <span className="c tl" />
+                <span className="c tr" />
+                <span className="c bl" />
+                <span className="c br" />
+                <div className="absolute left-0 right-0 top-0 z-[2] flex items-center justify-between px-8 py-4">
+                  <span className="m">Fig. 02</span>
+                  <span className="m text-accent">● Profile</span>
+                </div>
+                <img
+                  src={ManojPic}
+                  alt="Manoj H"
+                  className="h-full w-full object-cover object-top pt-10"
+                />
+                <div className="absolute inset-x-0 bottom-0 z-[2] flex items-center justify-between px-8 py-4">
+                  <span className="m">Manoj H</span>
+                  <span className="m">CSBS Student</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

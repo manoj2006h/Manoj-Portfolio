@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar';
 import About from './Components/About';
 import Project from './Components/Project';
 import Contact from './Components/Contact';
+import Resume from './Components/Resume';
 import Footer from './Components/Footer';
 import OverviewSkills from './Components/OverviewSkills';
 
@@ -64,6 +65,14 @@ function App() {
       element: (
         <Layout>
           <Contact />
+        </Layout>
+      )
+    },
+    {
+      path: "/resume",
+      element: (
+        <Layout>
+          <Resume />
         </Layout>
       )
     },
