@@ -1,1 +1,273 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "JO";
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/jost-latin-300-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JO";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/jost-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JO";
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/jost-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "PM";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@theme {
+  --color-paper: #fcfaf6;
+  --color-ink: #111111;
+  --color-muted: #6f6d68;
+  --color-dim: #a19e97;
+  --color-line: rgba(17, 17, 17, 0.14);
+  --color-accent: #ff5a1f;
+  --color-soft: #f3efe7;
+  --color-body: #2b2a28;
+  --color-body-muted: #3a3936;
+
+  --font-sans: "JO", "Avenir Next", system-ui, sans-serif;
+  --font-mono: "PM", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+    --color-paper: #111111;
+    --color-ink: #fcfaf6;
+    --color-muted: #a19e97;
+    --color-dim: #7a7872;
+    --color-line: rgba(252, 250, 246, 0.14);
+    --color-accent: #ff5a1f;
+    --color-soft: #1a1917;
+    --color-body: #ddd8cf;
+    --color-body-muted: #c2bdb4;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased overflow-x-hidden;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  ::selection {
+    background: rgba(255, 90, 31, 0.22);
+  }
+}
+
+@layer components {
+  .m {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .wrap {
+    max-width: 1360px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .wrap {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  .pillb {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px solid var(--color-ink);
+    border-radius: 999px;
+    padding: 0.75rem 1.25rem;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+    cursor: pointer;
+  }
+  .pillb:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .pillb.solid {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .pillb.solid:hover {
+    background: transparent;
+    color: var(--color-ink);
+  }
+
+  .arr {
+    display: inline-block;
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .arr::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+
+  .nav-link {
+    position: relative;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 0;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-ink);
+    transition: right 0.4s cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    right: 0;
+  }
+
+  .vf {
+    position: relative;
+    border: 1px solid var(--color-ink);
+    background: var(--color-paper);
+  }
+  .vf .c {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-color: var(--color-ink);
+    border-style: solid;
+    pointer-events: none;
+  }
+  .vf .tl { left: 10px; top: 10px; border-width: 1px 0 0 1px; }
+  .vf .tr { right: 10px; top: 10px; border-width: 1px 1px 0 0; }
+  .vf .bl { left: 10px; bottom: 10px; border-width: 0 0 1px 1px; }
+  .vf .br { right: 10px; bottom: 10px; border-width: 0 1px 1px 0; }
+
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-ink);
+    padding: 0.75rem 0;
+    font: inherit;
+    font-size: 17px;
+    color: var(--color-ink);
+    outline: none;
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+  .field::placeholder {
+    color: var(--color-dim);
+  }
+  .field:focus {
+    border-color: var(--color-accent);
+  }
+
+  .hero-char {
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) rotate(var(--tr, 0deg));
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+  .hero-float-inner {
+    display: inline-block;
+  }
+  .hero-float .hero-float-inner {
+    animation: hero-space-float var(--fd, 5s) ease-in-out infinite;
+    animation-delay: var(--fdelay, 0s);
+  }
+  .hero-name:hover .hero-char,
+  .hero-float-box:hover .hero-char {
+    transform: none;
+  }
+  .hero-name:hover .hero-float-inner,
+  .hero-float-box:hover .hero-float-inner {
+    animation: none;
+  }
+
+  @keyframes hero-space-float {
+    0%,
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    50% {
+      transform: translate(var(--fx, 0px), var(--fy, 0px))
+        rotate(var(--fr, 0deg));
+    }
+  }
+}
+
+/* Theme toggle view transition */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
+  clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
+  animation: theme-reveal 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+::view-transition-old(root) {
+  z-index: -1;
+}
+
+@keyframes theme-reveal {
+  to {
+    clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

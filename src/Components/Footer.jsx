@@ -5,124 +5,56 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 const Footer = () => {
-    return (
-        <footer className="bg-slate-950 text-white border-t border-slate-800">
+  return (
+    <div className="wrap">
+      <footer className="mt-0 grid grid-cols-1 gap-5 border-t border-ink pt-10 pb-16 sm:grid-cols-2 md:grid-cols-4">
+        <div>
+          <div className="m">Pages</div>
+          <div className="mt-3 space-y-1 text-[15px] leading-[1.8]">
+            <NavLink to="/" className="block hover:text-accent transition-colors">Home</NavLink>
+            <NavLink to="/about" className="block hover:text-accent transition-colors">About</NavLink>
+            <NavLink to="/skills" className="block hover:text-accent transition-colors">Skills</NavLink>
+            <NavLink to="/projects" className="block hover:text-accent transition-colors">Projects</NavLink>
+            <NavLink to="/contact" className="block hover:text-accent transition-colors">Contact</NavLink>
+          </div>
+        </div>
 
-            <div className="max-w-6xl mx-auto px-5 py-12">
+        <div>
+          <div className="m">Elsewhere</div>
+          <div className="mt-3 space-y-1 text-[15px] leading-[1.8]">
+            <a href="https://github.com/manoj2006h" target="_blank" rel="noopener noreferrer" className="block hover:text-accent transition-colors">GitHub</a>
+            <a href="https://www.linkedin.com/in/manoj2006h/" target="_blank" rel="noopener noreferrer" className="block hover:text-accent transition-colors">LinkedIn</a>
+          </div>
+        </div>
 
-                <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+        <div>
+          <div className="m">Say hi</div>
+          <div className="mt-3 space-y-1 text-[15px] leading-[1.8] text-body">
+            <a href="mailto:manoj2006h@gmail.com" className="block hover:text-accent transition-colors">manoj2006h@gmail.com</a>
+            <span className="block">Davangere, India</span>
+          </div>
+        </div>
 
-                    {/* Logo / About */}
-                    <div>
-                        <h2 className="text-2xl font-bold">
-                            Manoj H<span className="text-blue-500">.</span>
-                        </h2>
-
-                        <p className="mt-3 max-w-sm text-sm leading-relaxed text-gray-400">
-                            CSBS student and aspiring Full Stack Developer passionate
-                            about building modern and user-friendly web applications.
-                        </p>
-                    </div>
-
-                    {/* Quick Links */}
-                    <div>
-                        <h3 className="mb-4 text-lg font-semibold">
-                            Quick Links
-                        </h3>
-
-                        <ul className="flex flex-col gap-3 text-gray-400">
-                            <li>
-                                <NavLink
-                                    to="/"
-                                    className="hover:text-white transition"
-                                >
-                                    Home
-                                </NavLink>
-                            </li>
-
-                            <li>
-                                <NavLink
-                                    to="/about"
-                                    className="hover:text-white transition"
-                                >
-                                    About
-                                </NavLink>
-                            </li>
-
-                            <li>
-                                <NavLink
-                                    to="/skills"
-                                    className="hover:text-white transition"
-                                >
-                                    Skills
-                                </NavLink>
-                            </li>
-
-                            <li>
-                                <NavLink
-                                    to="/projects"
-                                    className="hover:text-white transition"
-                                >
-                                    Projects
-                                </NavLink>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Contact */}
-                    <div>
-                        <h3 className="mb-4 text-lg font-semibold">
-                            Let's Connect
-                        </h3>
-
-                        <p className="text-sm text-gray-400">
-                            Feel free to connect with me.
-                        </p>
-
-                        <div className="flex gap-5 mt-4">
-
-                            {/* GitHub */}
-                            <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href="https://github.com/manoj2006h"
-                                className="text-2xl text-gray-400 hover:text-white transition"
-                            >
-                                <FontAwesomeIcon icon={faGithub} />
-                            </a>
-
-                            {/* LinkedIn */}
-                            <a
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                href="https://www.linkedin.com/in/manoj2006h/"
-                                className="text-2xl text-gray-400 hover:text-white transition"
-                            >
-                                <FontAwesomeIcon icon={faLinkedin} />
-                            </a>
-
-                            {/* Email */}
-                            <a
-                                href="mailto:manoj2006h@gmail.com"
-                                className="text-2xl text-gray-400 hover:text-white transition"
-                            >
-                                <FontAwesomeIcon icon={faEnvelope} />
-                            </a>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                {/* Bottom */}
-                <div className="mt-10 border-t border-slate-800 pt-6 text-center text-sm text-gray-500">
-                    © {new Date().getFullYear()} Manoj H. All rights reserved.
-                </div>
-
+        <div>
+          <div className="m">© {new Date().getFullYear()}</div>
+          <div className="mt-3 text-[15px] leading-[1.8]">
+            <div className="uppercase tracking-[0.12em]">Manoj H</div>
+            <div className="mt-4 flex items-center gap-4 text-[18px] text-muted">
+              <a href="https://github.com/manoj2006h" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors" aria-label="GitHub">
+                <FontAwesomeIcon icon={faGithub} />
+              </a>
+              <a href="https://www.linkedin.com/in/manoj2006h/" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors" aria-label="LinkedIn">
+                <FontAwesomeIcon icon={faLinkedin} />
+              </a>
+              <a href="mailto:manoj2006h@gmail.com" className="hover:text-ink transition-colors" aria-label="Email">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </a>
             </div>
-
-        </footer>
-    )
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
 }
 
 export default Footer

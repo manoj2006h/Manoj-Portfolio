@@ -22,7 +22,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-const OverviewSkills = () => {
+const OverviewSkills = ({ showBorderTop = false, standalone = false }) => {
 
   const [activeCategory, setActiveCategory] = useState("All")
 
@@ -142,7 +142,7 @@ const OverviewSkills = () => {
     hidden: {
       opacity: 0,
       y: 30,
-      scale: 0.95
+      scale: 0.98
     },
 
     visible: {
@@ -158,7 +158,7 @@ const OverviewSkills = () => {
     exit: {
       opacity: 0,
       y: -20,
-      scale: 0.95,
+      scale: 0.98,
 
       transition: {
         duration: 0.2
@@ -169,9 +169,9 @@ const OverviewSkills = () => {
 
   return (
 
-    <section className="overflow-hidden bg-slate-950 px-5 py-20 text-white">
+    <section className={`overflow-hidden bg-paper text-ink ${showBorderTop ? 'border-t border-ink' : ''}`}>
 
-      <div className="mx-auto max-w-6xl">
+      <div className={`wrap pb-12 md:pb-16 ${standalone ? 'pt-[140px] md:pt-[160px]' : 'pt-24 md:pt-28'}`}>
 
 
         {/* ================= HEADING ================= */}
@@ -195,19 +195,18 @@ const OverviewSkills = () => {
           }}
 
           transition={{
-            duration: 0.6
+            duration: 0.6,
+            ease: [0.2, 0.8, 0.2, 1]
           }}
         >
 
-          <p className="text-sm font-medium uppercase tracking-widest text-blue-500">
-            My Skills
-          </p>
+          <p className="m">02 · My Skills</p>
 
-          <h2 className="mt-2 text-3xl font-bold sm:text-4xl">
-            Technologies I Work With
+          <h2 className="mt-4 text-[clamp(36px,4.5vw,56px)] font-light uppercase leading-[1.05] tracking-[-0.005em]">
+            Technologies I work with
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-gray-400">
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.7] text-body-muted">
             A collection of technologies and tools I have learned
             and use to build modern web applications.
           </p>
@@ -248,20 +247,20 @@ const OverviewSkills = () => {
               onClick={() => setActiveCategory(category)}
 
               whileHover={{
-                scale: 1.05
+                scale: 1.03
               }}
 
               whileTap={{
-                scale: 0.95
+                scale: 0.97
               }}
 
-              className={`rounded-lg px-5 py-3 text-sm transition duration-300 ${
+              className={`border px-5 py-2.5 text-[12px] uppercase tracking-[0.16em] transition duration-300 ${
 
                 activeCategory === category
 
-                  ? "bg-blue-600 text-white"
+                  ? "border-ink bg-ink text-paper"
 
-                  : "bg-slate-900 text-gray-400 hover:bg-slate-800 hover:text-white"
+                  : "border-line bg-transparent text-muted hover:border-ink hover:text-ink"
 
               }`}
             >
@@ -278,7 +277,7 @@ const OverviewSkills = () => {
         {/* ================= SKILLS GRID ================= */}
 
         <motion.div
-          className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
 
           variants={containerVariants}
 
@@ -310,19 +309,17 @@ const OverviewSkills = () => {
                 exit="exit"
 
                 whileHover={{
-                  y: -10,
-                  scale: 1.02
+                  y: -6
                 }}
 
-                className="flex min-h-48 flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 p-6"
+                className="flex min-h-48 flex-col items-center justify-center border border-line bg-paper p-6 transition-colors hover:border-ink hover:bg-soft/50"
               >
 
                 {/* Icon */}
 
                 <motion.div
                   whileHover={{
-                    rotate: 8,
-                    scale: 1.15
+                    scale: 1.08
                   }}
 
                   transition={{
@@ -333,7 +330,7 @@ const OverviewSkills = () => {
 
                   <FontAwesomeIcon
                     icon={skill.icon}
-                    className="text-5xl text-blue-500"
+                    className="text-4xl text-accent"
                   />
 
                 </motion.div>
@@ -341,14 +338,14 @@ const OverviewSkills = () => {
 
                 {/* Name */}
 
-                <h3 className="mt-5 text-lg font-semibold">
+                <h3 className="mt-5 text-lg font-normal uppercase tracking-[0.04em]">
                   {skill.name}
                 </h3>
 
 
                 {/* Category */}
 
-                <p className="mt-2 text-sm text-gray-400">
+                <p className="mt-2 m !text-[10px]">
                   {skill.category}
                 </p>
 

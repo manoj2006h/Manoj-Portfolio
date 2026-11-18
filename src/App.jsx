@@ -13,92 +13,61 @@ import OverviewSkills from './Components/OverviewSkills';
 import PageTransition from './Components/PageTransition';
 import ScrollToTop from './Components/ScrollToTop';
 
+const Layout = ({ children }) => (
+  <div className="min-h-screen bg-paper text-ink">
+    <ScrollToTop />
+    <Navbar />
+    <PageTransition>
+      {children}
+    </PageTransition>
+    <Footer />
+  </div>
+)
 
 function App() {
-
   const router = createBrowserRouter([
-
     {
       path: "/",
       element: (
-        <div>
-          <ScrollToTop />
-          <Navbar />
-
-          <PageTransition>
-            <Home />
-            <OverviewSkills />
-          </PageTransition>
-
-          <Footer />
-        </div>
+        <Layout>
+          <Home />
+          <OverviewSkills showBorderTop />
+        </Layout>
       )
     },
-
-
     {
       path: "/about",
       element: (
-        <div>
-          <ScrollToTop />
-          <Navbar />
-
-          <PageTransition>
-            <About />
-          </PageTransition>
-
-          <Footer />
-        </div>
+        <Layout>
+          <About />
+        </Layout>
       )
     },
     {
       path: "/projects",
       element: (
-        <div>
-          <ScrollToTop />
-          <Navbar />
-
-          <PageTransition>
-            <Project />
-          </PageTransition>
-
-          <Footer />
-        </div>
+        <Layout>
+          <Project />
+        </Layout>
       )
     },
     {
       path: "/skills",
       element: (
-        <div>
-          <ScrollToTop />
-          <Navbar />
-
-          <PageTransition>
-            <OverviewSkills />
-          </PageTransition>
-
-          <Footer />
-        </div>
+        <Layout>
+          <OverviewSkills standalone />
+        </Layout>
       )
     },
     {
       path: "/contact",
       element: (
-        <div>
-          <ScrollToTop />
-          <Navbar />
-
-          <PageTransition>
-            <Contact />
-          </PageTransition>
-
-          <Footer />
-        </div>
+        <Layout>
+          <Contact />
+        </Layout>
       )
     },
-
   ]);
-
 
   return (
     <RouterProvider router={router} />
