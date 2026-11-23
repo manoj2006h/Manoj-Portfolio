@@ -1,5 +1,39 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+
+const projects = [
+  {
+    n: '01',
+    title: 'Buildora',
+    category: 'AI Website Builder',
+    description:
+      'Describe a website in plain English and let a Gemini-powered agent build it, preview it live, and publish it to Vercel in one click.',
+    tags: ['React', 'Express', 'Gemini', 'Vercel'],
+    repo: 'https://github.com/manoj2006h/Buildora',
+    demo: 'https://buildora.manoj2006.in',
+  },
+  {
+    n: '02',
+    title: 'Terminal RAG',
+    category: 'Retrieval Augmented Generation',
+    description:
+      'A command-line RAG pipeline that loads PDFs, splits them into chunks, embeds them with Gemini, and stores them in Pinecone for retrieval.',
+    tags: ['Node.js', 'LangChain', 'Pinecone', 'Gemini'],
+    repo: 'https://github.com/manoj2006h/Terminal-RAG',
+  },
+  {
+    n: '03',
+    title: 'Sign Language Detector',
+    category: 'Computer Vision',
+    description:
+      'A DETR-style object detector that recognizes hello, iloveyou, and thankyou in images and real-time webcam feeds.',
+    tags: ['Python', 'PyTorch', 'DETR', 'OpenCV'],
+    repo: 'https://github.com/manoj2006h/Sign-Language-Detector',
+  },
+]
 
 const Project = () => {
   return (
@@ -25,51 +59,76 @@ const Project = () => {
           </p>
         </motion.div>
 
-        {/* Coming Soon Section */}
-        <motion.div
-          className="vf mx-auto mt-20 max-w-3xl px-8 py-16 text-center sm:px-14"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.2, 0.8, 0.2, 1] }}
-        >
-          <span className="c tl" />
-          <span className="c tr" />
-          <span className="c bl" />
-          <span className="c br" />
+        {/* Project grid */}
+        <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, i) => (
+            <motion.article
+              key={project.title}
+              className="vf group flex flex-col p-7 transition-transform duration-300 hover:-translate-y-1 sm:p-8"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.15 + i * 0.1,
+                ease: [0.2, 0.8, 0.2, 1],
+              }}
+            >
+              <span className="c tl" />
+              <span className="c tr" />
+              <span className="c bl" />
+              <span className="c br" />
 
-          <div className="mb-10 flex items-center justify-between">
-            <span className="m">Status</span>
-            <span className="m text-accent">● In Progress</span>
-          </div>
+              <div className="flex items-start justify-between gap-4">
+                <span className="m !text-accent">{project.n} / 03</span>
+                <span className="m text-right !text-[10px]">{project.category}</span>
+              </div>
 
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            className="mx-auto flex h-20 w-20 items-center justify-center border border-ink text-4xl"
-          >
-            🚀
-          </motion.div>
+              <h2 className="mt-10 text-3xl font-light uppercase leading-tight sm:text-4xl">
+                {project.title}
+              </h2>
 
-          <h2 className="mt-8 text-3xl font-light uppercase sm:text-4xl">
-            Projects are on the way.
-          </h2>
+              <p className="mt-5 flex-1 text-[16px] leading-[1.7] text-body-muted">
+                {project.description}
+              </p>
 
-          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.7] text-body-muted">
-            I&apos;m currently building and improving projects that showcase my
-            skills and what I&apos;ve been learning. They&apos;ll be added here soon.
-          </p>
+              <div className="mt-8 flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-          <div className="mx-auto mt-10 h-px w-full max-w-md overflow-hidden bg-line">
-            <motion.div
-              className="h-full bg-accent"
-              initial={{ width: '0%' }}
-              animate={{ width: '65%' }}
-              transition={{ duration: 1.5, delay: 0.5, ease: 'easeOut' }}
-            />
-          </div>
-
-          <p className="mt-4 m !text-[10px]">Building · Learning · Improving</p>
-        </motion.div>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-6">
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors hover:text-accent"
+                  aria-label={`View ${project.title} source code on GitHub`}
+                >
+                  <FontAwesomeIcon icon={faGithub} className="text-[15px]" />
+                  Source
+                </a>
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors hover:text-accent"
+                    aria-label={`Open ${project.title} live product`}
+                  >
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-[13px]" />
+                    Live product
+                  </a>
+                )}
+              </div>
+            </motion.article>
+          ))}
+        </div>
 
         {/* Bottom Statement */}
         <motion.div

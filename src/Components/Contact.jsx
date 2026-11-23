@@ -15,6 +15,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
+const EMAILJS_PUBLIC_KEY = "4SZn4l0d9_x7vFTF_"
+const EMAILJS_SERVICE_ID = "service_xjj2k5f"
+const CONTACT_TEMPLATE_ID = "template_qet1izp"
+const AUTO_REPLY_TEMPLATE_ID = "template_58y3uez"
+
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY })
+
+
 const Contact = () => {
 
   const form = useRef()
@@ -28,6 +36,8 @@ const Contact = () => {
 
     e.preventDefault()
 
+    if (!form.current) return
+
     setLoading(true)
     setStatus("")
 
@@ -35,25 +45,21 @@ const Contact = () => {
 
       // Send message to Manoj
       await emailjs.sendForm(
-        "service_xjj2k5f",
-        "template_qet1izp",
-        form.current,
-        {
-          publicKey: "4SZn4l0d9_x7vFTF_"
-        }
+        EMAILJS_SERVICE_ID,
+        CONTACT_TEMPLATE_ID,
+        form.current
       )
 
-
-      // Send automatic reply to the visitor
-      await emailjs.sendForm(
-        "service_xjj2k5f",
-        "template_58y3uez",
-        form.current,
-        {
-          publicKey: "4SZn4l0d9_x7vFTF_"
-        }
-      )
-
+      // Auto-reply is best-effort — it must not undo a successfully sent message
+      try {
+        await emailjs.sendForm(
+          EMAILJS_SERVICE_ID,
+          AUTO_REPLY_TEMPLATE_ID,
+          form.current
+        )
+      } catch (autoReplyError) {
+        console.warn("Auto-reply could not be sent:", autoReplyError)
+      }
 
       setStatus("Message sent successfully! I'll get back to you soon. 🚀")
       setSuccess(true)
@@ -62,9 +68,19 @@ const Contact = () => {
 
     } catch (error) {
 
-      console.error("EmailJS Error:", error)
+      const detail = error?.text || error?.message
 
-      setStatus("Something went wrong. Please try again.")
+      console.error("EmailJS Error:", {
+        status: error?.status,
+        text: error?.text,
+        message: error?.message
+      })
+
+      setStatus(
+        detail
+          ? `Could not send the message. (${detail})`
+          : "Something went wrong. Please try again."
+      )
       setSuccess(false)
 
     } finally {

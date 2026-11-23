@@ -175,6 +175,51 @@ const About = () => {
             </motion.div>
           </div>
         </section>
+
+        {/* Music */}
+        <motion.section
+          className="mt-28 border-t border-ink pt-20"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="grid gap-10 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:items-center md:gap-16">
+            <div>
+              <p className="m text-accent">On Repeat</p>
+              <h2 className="mt-5 text-[clamp(36px,4.5vw,56px)] font-light uppercase leading-[1.05]">
+                The soundtrack
+                <span className="block text-muted">
+                  behind the build<span className="text-accent">.</span>
+                </span>
+              </h2>
+              <p className="mt-6 max-w-md text-[17px] leading-[1.7] text-body-muted">
+                A small taste of what I listen to while learning, debugging,
+                and turning ideas into projects.
+              </p>
+            </div>
+
+            <div className="vf p-3 sm:p-4">
+              <span className="c tl" />
+              <span className="c tr" />
+              <span className="c bl" />
+              <span className="c br" />
+
+              <p className="m mb-4 !text-accent">Spotify · On repeat</p>
+
+              <iframe
+                title="Spotify playlist"
+                className="h-[352px] w-full"
+                style={{ borderRadius: '12px' }}
+                src="https://open.spotify.com/embed/playlist/7eiqfP72zCmUUcV7KGMfZO?utm_source=generator&si=aafa67d3e6104148"
+                frameBorder="0"
+                allowFullScreen
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </motion.section>
       </div>
     </section>
   )
