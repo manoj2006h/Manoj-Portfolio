@@ -365,7 +365,7 @@ const Home = () => {
               </div>
               <div className="absolute inset-x-0 bottom-0 z-[2] flex items-center justify-center px-8 py-4">
                 <span className="m text-[13px]">
-                  <span className="md:hidden">Tap</span>
+                  <span className="md:hidden">Tap and hold</span>
                   <span className="hidden md:inline">Hover</span> into the box
                 </span>
               </div>
