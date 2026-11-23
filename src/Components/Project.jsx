@@ -33,6 +33,14 @@ const projects = [
     tags: ['Python', 'PyTorch', 'DETR', 'OpenCV'],
     repo: 'https://github.com/manoj2006h/Sign-Language-Detector',
   },
+  {
+    n: '04',
+    title: 'SonicFire',
+    category: 'AI + IoT Fire Safety',
+    description:
+      'An AI-powered acoustic fire suppression system that detects, localizes, and suppresses early-stage fires with low-frequency sound — no water or chemicals. It fuses flame, smoke, thermal, and gas sensors with a 360° rotating emitter to protect data centers, labs, and industrial spaces. Selected under the NAIN 2.0 initiative with a proposed investment of ₹4.7 lakh.',
+    tags: ['AI', 'IoT', 'Embedded Systems', 'Robotics'],
+  },
 ]
 
 const Project = () => {
@@ -79,7 +87,9 @@ const Project = () => {
               <span className="c br" />
 
               <div className="flex items-start justify-between gap-4">
-                <span className="m !text-accent">{project.n} / 03</span>
+                <span className="m !text-accent">
+                  {project.n} / {String(projects.length).padStart(2, '0')}
+                </span>
                 <span className="m text-right !text-[10px]">{project.category}</span>
               </div>
 
@@ -103,16 +113,18 @@ const Project = () => {
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-6">
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors hover:text-accent"
-                  aria-label={`View ${project.title} source code on GitHub`}
-                >
-                  <FontAwesomeIcon icon={faGithub} className="text-[15px]" />
-                  Source
-                </a>
+                {project.repo && (
+                  <a
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors hover:text-accent"
+                    aria-label={`View ${project.title} source code on GitHub`}
+                  >
+                    <FontAwesomeIcon icon={faGithub} className="text-[15px]" />
+                    Source
+                  </a>
+                )}
                 {project.demo && (
                   <a
                     href={project.demo}
