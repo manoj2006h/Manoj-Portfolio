@@ -11,6 +11,8 @@ const Home = () => {
   const panelCharRefs = useRef([])
   const panelState = useRef({ items: [], hovered: false, ready: false, raf: 0 })
 
+  const [panelTapped, setPanelTapped] = useState(false)
+
   const [offsets, setOffsets] = useState(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
     const zero = { x: 0, y: 0, r: 0 }
@@ -277,20 +279,22 @@ const Home = () => {
 
           {/* RIGHT SIDE PANEL */}
           <motion.div
-            className="hidden md:block"
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
           >
             <div
               ref={panelBoxRef}
-              className="vf hero-float-box mx-auto aspect-[4/5] w-full max-w-md overflow-hidden"
+              className={`vf hero-float-box mx-auto aspect-[4/5] w-full max-w-md overflow-hidden ${panelTapped ? 'is-tapped' : ''}`}
               onMouseEnter={() => {
                 panelState.current.hovered = true
               }}
               onMouseLeave={() => {
                 panelState.current.hovered = false
               }}
+              onTouchStart={() => setPanelTapped(true)}
+              onTouchEnd={() => setPanelTapped(false)}
+              onTouchCancel={() => setPanelTapped(false)}
             >
               <span className="c tl" />
               <span className="c tr" />
@@ -357,7 +361,10 @@ const Home = () => {
                 </p>
               </div>
               <div className="absolute inset-x-0 bottom-0 z-[2] flex items-center justify-center px-8 py-4">
-                <span className="m text-[13px]">Hover into the box</span>
+                <span className="m text-[13px]">
+                  <span className="md:hidden">Tap</span>
+                  <span className="hidden md:inline">Hover</span> into the box
+                </span>
               </div>
             </div>
           </motion.div>

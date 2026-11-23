@@ -214,7 +214,8 @@
     animation-delay: var(--fdelay, 0s);
   }
   .hero-name:hover .hero-char,
-  .hero-float-box:hover .hero-char {
+  .hero-float-box:hover .hero-char,
+  .hero-float-box.is-tapped .hero-char {
     transform: none;
   }
   .hero-name:hover .hero-float-inner,
