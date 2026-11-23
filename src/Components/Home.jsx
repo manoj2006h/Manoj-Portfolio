@@ -11,8 +11,6 @@ const Home = () => {
   const panelCharRefs = useRef([])
   const panelState = useRef({ items: [], hovered: false, ready: false, raf: 0 })
 
-  const [panelTapped, setPanelTapped] = useState(false)
-
   const [offsets, setOffsets] = useState(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
     const zero = { x: 0, y: 0, r: 0 }
@@ -56,7 +54,6 @@ const Home = () => {
   }, [name])
 
   useEffect(() => {
-    if (offsets.isMobile) return undefined
     const box = panelBoxRef.current
     if (!box) return undefined
 
@@ -285,16 +282,22 @@ const Home = () => {
           >
             <div
               ref={panelBoxRef}
-              className={`vf hero-float-box mx-auto aspect-[4/5] w-full max-w-md overflow-hidden ${panelTapped ? 'is-tapped' : ''}`}
+              className="vf hero-float-box mx-auto aspect-[4/5] w-full max-w-md overflow-hidden"
               onMouseEnter={() => {
                 panelState.current.hovered = true
               }}
               onMouseLeave={() => {
                 panelState.current.hovered = false
               }}
-              onTouchStart={() => setPanelTapped(true)}
-              onTouchEnd={() => setPanelTapped(false)}
-              onTouchCancel={() => setPanelTapped(false)}
+              onTouchStart={() => {
+                panelState.current.hovered = true
+              }}
+              onTouchEnd={() => {
+                panelState.current.hovered = false
+              }}
+              onTouchCancel={() => {
+                panelState.current.hovered = false
+              }}
             >
               <span className="c tl" />
               <span className="c tr" />
