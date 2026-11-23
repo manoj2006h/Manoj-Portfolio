@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const links = [
   { to: '/about', label: 'About', n: '01' },
@@ -29,6 +30,48 @@ const Navbar = () => {
     if (typeof document === 'undefined') return false
     return document.documentElement.classList.contains('dark')
   })
+  const [themeHintDismissed, setThemeHintDismissed] = useState(() => {
+    if (typeof window === 'undefined') return false
+    try {
+      return window.localStorage.getItem('theme-hint-dismissed-v2') === '1'
+    } catch {
+      return false
+    }
+  })
+  const [themeHintReady, setThemeHintReady] = useState(false)
+
+  const dismissThemeHint = () => {
+    setThemeHintReady(false)
+    setThemeHintDismissed(true)
+    try {
+      window.localStorage.setItem('theme-hint-dismissed-v2', '1')
+    } catch {}
+  }
+
+  useEffect(() => {
+    if (themeHintDismissed) return
+
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const timer = window.setTimeout(
+      () => setThemeHintReady(true),
+      prefersReduced ? 0 : 800
+    )
+
+    return () => window.clearTimeout(timer)
+  }, [themeHintDismissed])
+
+  useEffect(() => {
+    if (!themeHintReady) return
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') dismissThemeHint()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [themeHintReady])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
@@ -43,6 +86,7 @@ const Navbar = () => {
   }, [isOpen])
 
   const toggleTheme = (e) => {
+    dismissThemeHint()
     const next = !dark
     const root = document.documentElement
     const prefersReduced =
@@ -120,7 +164,62 @@ const Navbar = () => {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            {themeButton('rounded-full')}
+            <div className="relative">
+              {themeButton('rounded-full')}
+
+              <AnimatePresence>
+                {themeHintReady && !themeHintDismissed && (
+                  <motion.div
+                    role="note"
+                    aria-label="Dark mode tip"
+                    initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                    transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
+                    className="absolute right-0 top-[calc(100%+22px)] z-50 w-[min(19rem,calc(100vw-2.5rem))] border border-line bg-paper p-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] sm:p-5"
+                  >
+                    {/* Curved arrow pointing back up to the theme toggle */}
+                    <svg
+                      viewBox="0 0 56 30"
+                      className="pointer-events-none absolute -top-[27px] right-3 h-8 w-14 overflow-visible text-accent sm:right-5"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M3 29 C 18 30, 39 22, 47 7"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M39 6 L47 7 L46 15"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+
+                    <button
+                      type="button"
+                      onClick={dismissThemeHint}
+                      aria-label="Dismiss tip"
+                      className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center text-dim transition-colors hover:text-ink"
+                    >
+                      <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                        <path d="M3 3l10 10M13 3L3 13" />
+                      </svg>
+                    </button>
+
+                    <p className="m !text-accent">Tip</p>
+                    <p className="mt-2 pr-5 text-[15px] leading-[1.5]">
+                      You can switch to {dark ? 'light' : 'dark'} mode
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <NavLink to="/contact" className="pillb solid hidden md:inline-flex">
               Get in touch <span className="arr" />
             </NavLink>
